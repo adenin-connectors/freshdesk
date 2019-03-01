@@ -1,0 +1,8 @@
+ServiceName: 'myticket-status'
+InterfaceName: 'status'
+Description: 'Freshdesk Tickets Status'
+APIDoc: ''
+Interfaces: 'search,pagination'
+RequiredScopes: ''
+AdditionalParameters:
+Method: ''
