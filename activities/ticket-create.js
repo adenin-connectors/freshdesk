@@ -58,8 +58,6 @@ module.exports = async (activity) => {
 
     // copy response data
     activity.Response.Data = data;
-
-
   } catch (error) {
     // handle generic exception
     cfActivity.handleError(activity, error);
