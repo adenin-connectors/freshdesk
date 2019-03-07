@@ -8,10 +8,12 @@ module.exports = async (activity) => {
     api.initialize(activity);
 
     var dateRange = cfActivity.dateRange(activity, "today");
-    let today = new Date(dateRange.startDate);
+    let start = new Date(dateRange.startDate);
+    let end = new Date(dateRange.endDate);
 
     const response = await api(`/search/tickets?query=
-    "created_at:'${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${("0" + today.getDate()).slice(-2)}'"`);
+    "created_at:>'${start.getFullYear()}-${("0" + (start.getMonth() + 1)).slice(-2)}-${("0" + start.getDate()).slice(-2)}'`+
+    ` AND created_at:<'${end.getFullYear()}-${("0" + (end.getMonth() + 1)).slice(-2)}-${("0" + end.getDate()).slice(-2)}'"`);
 
     if (!cfActivity.isResponseOk(activity, response)) {
       return;
