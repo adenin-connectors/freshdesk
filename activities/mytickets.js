@@ -34,7 +34,7 @@ function convertResponse(response) {
       id: raw.id,
       title: raw.subject,
       description: raw.type,
-      link: `https://${freshdeskDomain}.freshdesk.com/a/tickets/${raw.id}`,
+      link: `https://${freshdeskDomain}/a/tickets/${raw.id}`,
       raw: raw
     };
     items.push(item);
