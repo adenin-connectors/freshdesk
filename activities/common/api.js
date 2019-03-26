@@ -4,7 +4,6 @@ const isPlainObj = require('is-plain-obj');
 const HttpAgent = require('agentkeepalive');
 const HttpsAgent = HttpAgent.HttpsAgent;
 
-let _activity = null;
 
 function api(path, opts) {
   if (typeof path !== 'string') {
@@ -16,7 +15,7 @@ function api(path, opts) {
   opts = Object.assign({
     json: true,
     endpoint: `https://${freshdeskDomain}/api/v2`,
-    token: _activity.Context.connector.custom2,
+    token: Activity.Context.connector.custom2,
     agent: {
       http: new HttpAgent(),
       https: new HttpsAgent()
@@ -56,12 +55,8 @@ api.stream = (url, opts) => apigot(url, Object.assign({}, opts, {
   stream: true
 }));
 
-api.initialize = function (activity) {
-  _activity = activity;
-}
-
 api.getDomain = function () {
-  let domain = _activity.Context.connector.custom1;
+  let domain = Activity.Context.connector.custom1;
   domain = domain.replace('https://', '');
   domain = domain.replace('/', '');
 
