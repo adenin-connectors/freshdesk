@@ -18,8 +18,8 @@ module.exports = async (activity) => {
 
     let ticketStatus = {
       title: T('New Freshdesk Tickets'),
-      url: `https://${freshdeskDomain}/a/tickets/filters/all_tickets`,
-      urlLabel: T('All Tickets'),
+      link: `https://${freshdeskDomain}/a/tickets/filters/all_tickets`,
+      linkLabel: T('All Tickets'),
     };
 
     let noOfTickets = tickets.length;

@@ -1,7 +1,6 @@
 'use strict';
 const api = require('./common/api');
 
-
 module.exports = async (activity) => {
 
   try {
@@ -16,7 +15,6 @@ module.exports = async (activity) => {
     }
 
     switch (activity.Request.Path) {
-
       case "create":
       case "submit":
         const form = _action.form;
@@ -52,7 +50,6 @@ module.exports = async (activity) => {
         }
         break;
     }
-
     // copy response data
     activity.Response.Data = data;
   } catch (error) {
