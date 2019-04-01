@@ -1,5 +1,8 @@
 'use strict';
 const api = require('./common/api');
+const path = require('path');
+const yaml = require('js-yaml');
+const fs = require('fs');
 
 module.exports = async (activity) => {
 
@@ -24,6 +27,7 @@ module.exports = async (activity) => {
             subject: form.subject,
             description: form.description,
             email: activity.Context.UserEmail,
+            priority : form.priority,
             status: 2, //default value
             priority: 1 //default value
           }
@@ -40,6 +44,10 @@ module.exports = async (activity) => {
         break;
 
       default:
+      var fname = __dirname + path.sep + "common" + path.sep + "ticket-create.form";
+      var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
+
+      data.formSchema = schema;
         // initialize form subject with query parameter (if provided)
         if (activity.Request.Query && activity.Request.Query.query) {
           data = {
