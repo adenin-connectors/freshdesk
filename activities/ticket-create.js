@@ -33,7 +33,8 @@ module.exports = async (activity) => {
           }
         });
 
-        var comment = "Task created";
+        //cant add field for ticket id because I cant get response since account is suspended
+        var comment = T("Ticket created"); 
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
           response: {
@@ -47,6 +48,7 @@ module.exports = async (activity) => {
       var fname = __dirname + path.sep + "common" + path.sep + "ticket-create.form";
       var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
 
+      data.title = T("Create Freshdesk Ticket");
       data.formSchema = schema;
         // initialize form subject with query parameter (if provided)
         if (activity.Request.Query && activity.Request.Query.query) {
@@ -56,6 +58,13 @@ module.exports = async (activity) => {
             }
           };
         }
+        data._actionList = [{
+          id: "create",
+          label: T("Create Ticket"),
+          settings: {
+            actionType: "a"
+          }
+        }];
         break;
     }
     // copy response data

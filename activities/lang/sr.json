@@ -7,5 +7,8 @@
   "New Freshdesk Tickets" : "Novi Freshdesk Tiketi",
   "You have {0} new tickets." : "Imate {0} nova tiketa.",
   "You have 1 new ticket." : "Imate 1 novi tiket.",
-  "You have no new tickets." : "Nemate novih tiketa."
+  "You have no new tickets." : "Nemate novih tiketa.",
+  "Ticket created" : "Tiket je kreiran",
+  "Create Freshdesk Ticket" : "Kreiraj Freshdesk Tiket",
+  "Create Ticket" : "Kreiraj Tiket"
 }
