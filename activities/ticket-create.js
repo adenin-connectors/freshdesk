@@ -21,20 +21,21 @@ module.exports = async (activity) => {
       case "create":
       case "submit":
         const form = _action.form;
+        api.initialize(activity);
         var response = await api.post('/tickets', {
           json: true,
           body: {
             subject: form.subject,
             description: form.description,
             email: activity.Context.UserEmail,
-            priority : form.priority,
+            priority: form.priority,
             status: 2, //default value
             priority: 1 //default value
           }
         });
 
         //cant add field for ticket id because I cant get response since account is suspended
-        var comment = T("Ticket created"); 
+        var comment = T(activity, "Ticket created");
         data = getObjPath(activity.Request, "Data.model");
         data._action = {
           response: {
@@ -45,11 +46,11 @@ module.exports = async (activity) => {
         break;
 
       default:
-      var fname = __dirname + path.sep + "common" + path.sep + "ticket-create.form";
-      var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
+        var fname = __dirname + path.sep + "common" + path.sep + "ticket-create.form";
+        var schema = yaml.safeLoad(fs.readFileSync(fname, 'utf8'));
 
-      data.title = T("Create Freshdesk Ticket");
-      data.formSchema = schema;
+        data.title = T(activity, "Create Freshdesk Ticket");
+        data.formSchema = schema;
         // initialize form subject with query parameter (if provided)
         if (activity.Request.Query && activity.Request.Query.query) {
           data = {
@@ -60,7 +61,7 @@ module.exports = async (activity) => {
         }
         data._actionList = [{
           id: "create",
-          label: T("Create Ticket"),
+          label: T(activity, "Create Ticket"),
           settings: {
             actionType: "a"
           }
@@ -71,7 +72,7 @@ module.exports = async (activity) => {
     activity.Response.Data = data;
   } catch (error) {
     // handle generic exception
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 
   function getObjPath(obj, path) {

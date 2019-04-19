@@ -3,17 +3,18 @@ const api = require('./common/api');
 
 module.exports = async (activity) => {
   try {
+    api.initialize(activity);
     const response = await api('/tickets');
 
-    if (Activity.isErrorResponse(response)) return;
+    if ($.isErrorResponse(activity, response)) return;
 
     let tickets = response.body;
     let freshdeskDomain = api.getDomain();
 
     let ticketStatus = {
-      title: T('Freshdesk Tickets'),
+      title: T(activity, 'Freshdesk Tickets'),
       link: `https://${freshdeskDomain}/a/tickets/filters/all_tickets`,
-      linkLabel: T('All Tickets'),
+      linkLabel: T(activity, 'All Tickets'),
     };
 
     let noOfTickets = tickets.length;
@@ -21,7 +22,7 @@ module.exports = async (activity) => {
     if (noOfTickets > 0) {
       ticketStatus = {
         ...ticketStatus,
-        description: noOfTickets > 1 ? T("You have {0} tickets.", noOfTickets) : T("You have 1 ticket."),
+        description: noOfTickets > 1 ? T(activity, "You have {0} tickets.", noOfTickets) : T(activity, "You have 1 ticket."),
         color: 'blue',
         value: noOfTickets,
         actionable: true
@@ -29,7 +30,7 @@ module.exports = async (activity) => {
     } else {
       ticketStatus = {
         ...ticketStatus,
-        description: T(`You have no tickets.`),
+        description: T(activity, `You have no tickets.`),
         actionable: false
       };
     }
@@ -37,6 +38,6 @@ module.exports = async (activity) => {
     activity.Response.Data = ticketStatus;
 
   } catch (error) {
-    Activity.handleError(error);
+    $.handleError(activity, error);
   }
 };
