@@ -1,8 +1,0 @@
-ServiceName: 'mytickets-new'
-InterfaceName: 'items'
-Description: 'My New Tickets'
-APIDoc: ''
-Interfaces: 'daterange'
-RequiredScopes: ''
-AdditionalParameters:
-Method: ''

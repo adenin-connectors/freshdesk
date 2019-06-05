@@ -73,4 +73,25 @@ for (const x of helpers) {
   api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
 }
 
+/**maps response data to items */
+api.convertResponse = function (tickets) {
+  let items = [];
+
+  let freshdeskDomain = api.getDomain();
+
+  for (let i = 0; i < tickets.length; i++) {
+    let raw = tickets[i];
+    let item = {
+      id: raw.id,
+      title: raw.subject,
+      description: raw.type,
+      date: new Date(raw.created_at).toISOString(),
+      link: `https://${freshdeskDomain}/a/tickets/${raw.id}`,
+      raw: raw
+    };
+    items.push(item);
+  }
+
+  return { items };
+}
 module.exports = api;

@@ -1,13 +1,12 @@
 {
-  "Freshdesk Tickets": "Freshdesk Tiketi",
+  "Open Tickets": "Otvoreni Tiketi",
   "All Tickets": "Svi Tiketi",
   "You have {0} tickets.": "Imate {0} tiketa.",
   "You have 1 ticket.": "Imate 1 tiket.",
   "You have no tickets.": "Nemate tikete.",
-  "New Freshdesk Tickets": "Novi Freshdesk Tiketi",
-  "You have {0} new tickets.": "Imate {0} nova tiketa.",
-  "You have 1 new ticket.": "Imate 1 novi tiket.",
-  "You have no new tickets.": "Nemate novih tiketa.",
+  "You have {0} tickets assigned.": "Imate {0} dodeljena tiketa.",
+  "You have 1 ticket assigned.": "Imate 1 dodeljen tiket.",
+  "You have no tickets assigned.": "Nemate dodeljene tikete.",
   "Ticket created": "Tiket je kreiran",
   "Create Freshdesk Ticket": "Kreiraj Freshdesk Tiket",
   "Create Ticket": "Kreiraj Tiket"
