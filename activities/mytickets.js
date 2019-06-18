@@ -33,6 +33,10 @@ module.exports = async (activity) => {
     if (value > 0) {
       activity.Response.Data.value = value;
       activity.Response.Data.color = 'blue';
+      // items are alrady sorted by date descending (higest value first) in api request
+      // request wasn't changed it's just tested to see how it is sorted
+      // sort_by and sort_type can't be added to /search/tickets enpoint
+      activity.Response.Data.date = activity.Response.Data.items[0].date;
       activity.Response.Data.description = value > 1 ? T(activity, "You have {0} tickets assigned.", value) :
         T(activity, "You have 1 ticket assigned.");
     } else {

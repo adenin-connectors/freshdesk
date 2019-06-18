@@ -92,6 +92,6 @@ api.convertResponse = function (tickets) {
     items.push(item);
   }
 
-  return { items };
+  return items;
 }
 module.exports = api;
