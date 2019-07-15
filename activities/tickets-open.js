@@ -5,7 +5,7 @@ module.exports = async (activity) => {
   try {
     api.initialize(activity);
 
-    var dateRange = $.dateRange(activity, "today");
+    var dateRange = $.dateRange(activity);
     let start = new Date(dateRange.startDate);
     let end = new Date(dateRange.endDate);
     let pagination = $.pagination(activity); //default page size is 30, I can't get it to work as param in request url
