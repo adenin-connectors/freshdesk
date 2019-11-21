@@ -38,6 +38,7 @@ function api(path, opts) {
     throw err;
   });
 }
+
 const helpers = [
   'get',
   'post',
@@ -51,7 +52,7 @@ api.initialize = (activity) => {
   _activity = activity;
 };
 
-api.stream = (url, opts) => got(url, Object.assign({}, opts, {
+api.stream = (url, opts) => api(url, Object.assign({}, opts, {
   json: false,
   stream: true
 }));
@@ -69,19 +70,19 @@ api.getDomain = function () {
 
 for (const x of helpers) {
   const method = x.toUpperCase();
-  api[x] = (url, opts) => api(url, Object.assign({}, opts, { method }));
-  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, { method }));
+  api[x] = (url, opts) => api(url, Object.assign({}, opts, {method}));
+  api.stream[x] = (url, opts) => api.stream(url, Object.assign({}, opts, {method}));
 }
 
 /**maps response data to items */
 api.convertResponse = function (tickets) {
-  let items = [];
-
-  let freshdeskDomain = api.getDomain();
+  const items = [];
+  const freshdeskDomain = api.getDomain();
 
   for (let i = 0; i < tickets.length; i++) {
-    let raw = tickets[i];
-    let item = {
+    const raw = tickets[i];
+
+    const item = {
       id: raw.id,
       title: raw.subject,
       description: raw.type,
@@ -89,9 +90,11 @@ api.convertResponse = function (tickets) {
       link: `https://${freshdeskDomain}/a/tickets/${raw.id}`,
       raw: raw
     };
+
     items.push(item);
   }
 
   return items;
-}
+};
+
 module.exports = api;

@@ -25,7 +25,7 @@ module.exports = async (activity) => {
     activity.Response.Data.items = api.convertResponse(response.body.results);
 
     if (parseInt(pagination.page) === 1) {
-      activity.Response.Data.title = T(activity, 'Open Tickets');
+      activity.Response.Data.title = T(activity, 'New Tickets');
       activity.Response.Data.link = `https://${freshdeskDomain}/a/tickets/filters/new_and_my_open`;
       activity.Response.Data.linkLabel = T(activity, 'All Tickets');
       activity.Response.Data.actionable = value > 0;
@@ -37,9 +37,9 @@ module.exports = async (activity) => {
         // sort_by and sort_type can't be added to /search/tickets enpoint
         activity.Response.Data.date = activity.Response.Data.items[0].date;
         activity.Response.Data.color = 'blue';
-        activity.Response.Data.description = value > 1 ? T(activity, 'You have {0} open tickets.', value) : T(activity, 'You have 1 open ticket.');
+        activity.Response.Data.description = value > 1 ? T(activity, 'You have {0} new tickets.', value) : T(activity, 'You have 1 new ticket.');
       } else {
-        activity.Response.Data.description = T(activity, 'You have no open tickets.');
+        activity.Response.Data.description = T(activity, 'You have no new tickets.');
       }
     }
   } catch (error) {
