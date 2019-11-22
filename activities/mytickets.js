@@ -30,16 +30,17 @@ module.exports = async (activity) => {
       activity.Response.Data.link = `https://${freshdeskDomain}/a/tickets/filters/all_tickets`;
       activity.Response.Data.linkLabel = T(activity, 'All Tickets');
       activity.Response.Data.actionable = value > 0;
+      activity.Response.Data.thumbnail = 'https://www.adenin.com/assets/images/wp-images/logo/freshdesk.svg';
 
       if (value > 0) {
         activity.Response.Data.value = value;
-        activity.Response.Data.color = 'blue';
         // items are alrady sorted by date descending (higest value first) in api request
         // request wasn't changed it's just tested to see how it is sorted
         // sort_by and sort_type can't be added to /search/tickets enpoint
         activity.Response.Data.date = activity.Response.Data.items[0].date;
         activity.Response.Data.description = value > 1 ? T(activity, "You have {0} tickets assigned.", value) :
           T(activity, "You have 1 ticket assigned.");
+        activity.Response.Data.briefing = activity.Response.Data.description + ' The latest is <b>' + activity.Response.Data.items[0].title + '</b>';
       } else {
         activity.Response.Data.description = T(activity, `You have no tickets assigned.`);
       }

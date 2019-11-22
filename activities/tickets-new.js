@@ -39,6 +39,7 @@ module.exports = async (activity) => {
       activity.Response.Data.link = `https://${freshdeskDomain}/a/tickets/filters/new_and_my_open`;
       activity.Response.Data.linkLabel = T(activity, 'All Tickets');
       activity.Response.Data.actionable = count > 0;
+      activity.Response.Data.thumbnail = 'https://www.adenin.com/assets/images/wp-images/logo/freshdesk.svg';
 
       if (count > 0) {
         activity.Response.Data.value = count;
@@ -46,8 +47,8 @@ module.exports = async (activity) => {
         // request wasn't changed it's just tested to see how it is sorted
         // sort_by and sort_type can't be added to /search/tickets enpoint
         activity.Response.Data.date = activity.Response.Data.items[0].date;
-        activity.Response.Data.color = 'blue';
         activity.Response.Data.description = count > 1 ? T(activity, 'You have {0} new tickets.', count) : T(activity, 'You have 1 new ticket.');
+        activity.Response.Data.briefing = activity.Response.Data.description + ' The latest is <b>' + items[0].title + '</b>';
       } else {
         activity.Response.Data.description = T(activity, 'You have no new tickets.');
       }
