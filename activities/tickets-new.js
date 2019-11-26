@@ -14,8 +14,8 @@ module.exports = async (activity) => {
 
     const response = await api('/search/tickets?query=' +
       `"(created_at:>'${start.getFullYear()}-${('0' + (start.getMonth() + 1)).slice(-2)}-${('0' + start.getDate()).slice(-2)}'` +
-      ` AND created_at:<'${end.getFullYear()}-${('0' + (end.getMonth() + 1)).slice(-2)}-${('0' + end.getDate()).slice(-2)}')` +
-      ` AND status:2"&page=${pagination.page}`);
+      ` AND created_at:<'${end.getFullYear()}-${('0' + (end.getMonth() + 1)).slice(-2)}-${('0' + end.getDate()).slice(-2)}')"` +
+      ` &page=${pagination.page}`);
 
     if ($.isErrorResponse(activity, response)) return;
 
@@ -29,6 +29,7 @@ module.exports = async (activity) => {
       activity.Response.Data.link = `https://${freshdeskDomain}/a/tickets/filters/new_and_my_open`;
       activity.Response.Data.linkLabel = T(activity, 'All Tickets');
       activity.Response.Data.actionable = value > 0;
+      activity.Response.Data.thumbnail = 'https://www.adenin.com/assets/images/wp-images/logo/freshdesk.svg';
 
       if (value > 0) {
         activity.Response.Data.value = value;
@@ -36,7 +37,6 @@ module.exports = async (activity) => {
         // request wasn't changed it's just tested to see how it is sorted
         // sort_by and sort_type can't be added to /search/tickets enpoint
         activity.Response.Data.date = activity.Response.Data.items[0].date;
-        activity.Response.Data.color = 'blue';
         activity.Response.Data.description = value > 1 ? T(activity, 'You have {0} new tickets.', value) : T(activity, 'You have 1 new ticket.');
       } else {
         activity.Response.Data.description = T(activity, 'You have no new tickets.');
