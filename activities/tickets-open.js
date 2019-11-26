@@ -38,6 +38,7 @@ module.exports = async (activity) => {
         // sort_by and sort_type can't be added to /search/tickets enpoint
         activity.Response.Data.date = activity.Response.Data.items[0].date;
         activity.Response.Data.description = value > 1 ? T(activity, 'You have {0} open tickets.', value) : T(activity, 'You have 1 open ticket.');
+        activity.Response.Data.briefing = activity.Response.Data.description + ' The latest is <b>' + activity.Response.Data.items[0].title + '</b>';
       } else {
         activity.Response.Data.description = T(activity, 'You have no open tickets.');
       }
